@@ -12,7 +12,7 @@ public:
 	Ball(const PointPosition& pos, float speed, float radius);
 	void Move(sf::RenderWindow& window, Racket& paddle);
 	sf::CircleShape GetBall();
-	void IsCollision(sf::RenderWindow& window, Racket& paddle);
+	
 	void StartMovement();
 private:
 	PointPosition pos_;
@@ -22,6 +22,8 @@ private:
 	float alpha_;
 	bool is_move_ = false;
 	void InitCircle();
+	void IsCollision(sf::RenderWindow& window, Racket& paddle);
+	bool IsCollisionWithRacket(Racket& paddle);
 	
 };
 
