@@ -1,7 +1,7 @@
 #include "Racket.h"
 
 Racket::Racket() {
-	pos_ = PointPosition(338.5f, 525.f);
+	pos_ = PointPosition(897.5f, 1055.f);
 
 	speed_ = 0.5;
 
@@ -13,14 +13,12 @@ Racket::Racket(PointPosition pos, float speed){
 	speed_ = speed;
 
 	InitTriangle();
-
-	
 }
 
 void Racket::Move(SideDirection side, sf::RenderWindow& window) {
 	if (pos_.GetX() >= 0 && pos_.GetX()+racket_.getSize().x<= window.getSize().x) {
 		float delta;
-		(side == SideDirection::LEFT) ? delta = -30 : delta = 30;
+		(side == SideDirection::LEFT) ? delta = -30.f : delta = 30.f;
 		pos_.SetX(pos_.GetX() + delta * speed_);
 		racket_.setPosition(pos_.GetX(), pos_.GetY());
 	}

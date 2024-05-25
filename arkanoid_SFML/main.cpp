@@ -1,24 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
-#include "Racket.h"
+#include "menu.h"
 
 int main(){
+    
+    Menu menu;
+    menu.run();
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
-
-    Game new_game;
-   
-
-    new_game.InitGame(window);
-
-    while (window.isOpen()){
-
-        new_game.ProcessEvent(window);
-        new_game.Update(window);
-       
-       
-        new_game.Render(window);
+    if (menu.IsGameStart()) {
+        Game new_game;
+        new_game.run();
     }
+
+ 
 
     return 0;
 }

@@ -142,6 +142,7 @@
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Racket.cpp" />
   </ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Racket.h" />
   </ItemGroup>

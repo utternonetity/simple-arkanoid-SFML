@@ -1,20 +1,27 @@
 #pragma once
 #include "Racket.h"
 #include <SFML/Graphics.hpp>
+#include<SFML/System.hpp>
 #include "Functions.h"
 #include "Ball.h"
+#include "Block.h"
+#include <vector>
+
 
 class Game{
 public:
-	Game() = default;
-	void InitGame(sf::RenderWindow& window);
-	void Update(sf::RenderWindow& window);
-	void ProcessEvent(sf::RenderWindow& window);
-	void Render(sf::RenderWindow& window);
+	Game();
+	void Update();
+	void ProcessEvent();
+	void Render();
+	void run();
 private:
+	sf::RenderWindow window_;
 	Racket paddle_;
 	Ball ball_;
-	SideDirection side_;
+	std::vector<Block> blocks_;
+	SideDirection side_ = SideDirection::ERROR;
 	bool flag_paddle_move_ = false;
+	sf::Clock clock_;
 };
 

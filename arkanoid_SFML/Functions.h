@@ -1,6 +1,12 @@
 #pragma once
 
+
 enum class SideDirection{
 	LEFT,
-	RIGHT
+	RIGHT,
+	TOP,
+	BOTTOM,
+	CORNER,
+	ERROR
 };
+

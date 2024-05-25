@@ -1,28 +1,45 @@
 #include "Game.h"
 
 
-void Game::InitGame(sf::RenderWindow& window) {
-
-    window.setFramerateLimit(144);
-    window.setVerticalSyncEnabled(true);
-}
-
-void Game::Update(sf::RenderWindow& window){
-    if (flag_paddle_move_) {
-        paddle_.Move(side_, window);
+Game::Game()
+    :window_(sf::VideoMode::getDesktopMode(), "Arkanoid", sf::Style::Fullscreen)
+{
+    window_.setMouseCursorVisible(false);
+    window_.setFramerateLimit(144);
+    window_.setVerticalSyncEnabled(true);
+    for (size_t i = 0; i < 18; i++) {
+        blocks_.push_back(Block(PointPosition(100.f * static_cast<float>(i) + static_cast<float>(i) * 5.f, 200.f)));
     }
-    ball_.Move(window, paddle_);
 }
 
-void Game::ProcessEvent(sf::RenderWindow& window){
+
+void Game::Update(){
+    float elapsed = clock_.restart().asMilliseconds();
+
+    if (flag_paddle_move_) {
+        paddle_.Move(side_, window_);
+    }
+    ball_.Move(window_, paddle_, blocks_, elapsed);
+    ball_.Move(window_, paddle_, blocks_, elapsed);
+}
+
+void Game::ProcessEvent(){
     flag_paddle_move_ = false;
 
 
     sf::Event event;
-    while (window.pollEvent(event)) {
+    while (window_.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
-            window.close();
+            window_.close();
+       
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::E) {
+                window_.close();
+            }
+        }
     }
+
+    
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)|| sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
@@ -42,9 +59,22 @@ void Game::ProcessEvent(sf::RenderWindow& window){
 
 }
 
-void Game::Render(sf::RenderWindow& window){
-    window.clear();
-    window.draw(paddle_.GetRacket());
-    window.draw(ball_.GetBall());
-    window.display();
+void Game::Render(){
+    window_.clear();
+    window_.draw(paddle_.GetRacket());
+    window_.draw(ball_.GetBall());
+    for (const auto& block : blocks_) {
+        if (!block.IsBroken()) {
+            window_.draw(block.GetBlock());
+        }
+    }
+    window_.display();
+}
+
+void Game::run(){
+    while (window_.isOpen()) {
+        ProcessEvent();
+        Update();
+        Render();
+    }
 }
